@@ -1,5 +1,3 @@
-# XYZ Hiring Test - Backend Engineer - Fiat Payments
-
 ### For detailed requirements go through
 
 REQUIREMENT.md
