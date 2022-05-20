@@ -1,0 +1,89 @@
+{
+  "customers":
+  [
+    {
+      "banks":
+      [
+        {
+          "accountNumber": "6622085487",
+          "routingNumber": "011000015"
+        }
+      ],
+      "fullName": "Jadzia Dax"
+    },
+    {
+      "banks":
+      [
+        {
+          "accountNumber": "0018423486",
+          "routingNumber": "021001208"
+        }
+      ],
+      "fullName": "James T. Kirk"
+    },
+    {
+      "banks":
+      [
+        {
+          "accountNumber": "1691452698",
+          "routingNumber": "021001208"
+        }
+      ],
+      "fullName": "Jean-Luc Picard"
+    },
+    {
+      "banks":
+      [
+        {
+          "accountNumber": "3572176408",
+          "routingNumber": "011000015"
+        }
+      ],
+      "fullName": "Jonathan Archer"
+    },
+    {
+      "banks":
+      [
+        {
+          "accountNumber": "8149516692",
+          "routingNumber": "011000015"
+        }
+      ],
+      "fullName": "Leonard McCoy"
+    },
+    {
+      "banks":
+      [
+        {
+          "accountNumber": "7438979785",
+          "routingNumber": "011000015"
+        }
+      ],
+      "fullName": "Montgomery Scott"
+    },
+    {
+      "banks":
+      [
+        {
+          "accountNumber": "1690537988",
+          "routingNumber": "011000015"
+        },
+        {
+          "accountNumber": "1690537989",
+          "routingNumber": "021001208"
+        }
+      ],
+      "fullName": "Spock"
+    },
+    {
+      "banks":
+      [
+        {
+          "accountNumber": "6018423486",
+          "routingNumber": "011000015"
+        }
+      ],
+      "fullName": "Wesley Crusher"
+    }
+  ]
+}
