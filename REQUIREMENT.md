@@ -1,4 +1,4 @@
-# XYZ Hiring Test - Backend Engineer - Fiat Payments
+# XYZ Company - Backend Engineer - Decide how much Fiat Payments to make to customers
 
 At XYZ, we receive thousands of deposits from customers per day. This test is designed to test your ability to work with a transaction set that could get returned by a banking partner. A common approach to detect incoming deposits is to poll a /transactions endpoint and inspect the result.  Deposit transactions can be identified by matching their destination to a known user depository account.
 
