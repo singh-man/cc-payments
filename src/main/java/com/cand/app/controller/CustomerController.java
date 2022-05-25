@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -27,6 +24,11 @@ public class CustomerController {
 //    @GetMapping("pay/{user}")
 //    public ResponseEntity<Customer> payCustomer(@PathVariable final String name) {
 //        return new ResponseEntity<Customer>(new Customer(), HttpStatus.OK);
+//    }
+
+//    @PostMapping("/balance")
+//    public ResponseEntity<CustomerDTO> withdrawAmount(@RequestBody final CustomerBalanceRequest balanceRequest) {
+//        return new ResponseEntity<CustomerDTO>(customerService.balance(balanceRequest), HttpStatus.OK);
 //    }
 
     @GetMapping("all")
