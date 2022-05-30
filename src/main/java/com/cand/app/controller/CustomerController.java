@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Method;
 import java.util.Set;
 
 /**
@@ -27,12 +28,14 @@ public class CustomerController {
 //    }
 
 //    @PostMapping("/balance")
+//    @RequestMapping(method = RequestMethod.POST)
 //    public ResponseEntity<CustomerDTO> withdrawAmount(@RequestBody final CustomerBalanceRequest balanceRequest) {
 //        return new ResponseEntity<CustomerDTO>(customerService.balance(balanceRequest), HttpStatus.OK);
 //    }
 
     @GetMapping("all")
     public ResponseEntity<Set<String>> getAllCustomers() {
+        // ResponseEntity holds the http status and headers otherwise send the obj only
         return new ResponseEntity<>(customerService.getAllCustomerNames(), HttpStatus.OK);
     }
 
