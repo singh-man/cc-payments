@@ -4,6 +4,7 @@ import com.cand.app.entity.Customer;
 import com.cand.app.exception.CustomerException;
 import com.cand.app.exception.Message;
 import com.cand.app.repository.ICustomer;
+import lombok.extern.slf4j.Slf4j;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,8 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class CustomerService implements ICustomerService {
-
-    private static final Logger log = Logger.getLogger(CustomerService.class);
 
     private ICustomer customerRep;
 
@@ -26,6 +26,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer getCustomerAccountDetails(String name) {
+        log.info("Getting customer account details : " + name);
         return Optional.ofNullable(customerRep.findByFullName(name)).orElseThrow(() -> new CustomerException(Message.CUSTOMER_NOT_FOUND));
     }
 

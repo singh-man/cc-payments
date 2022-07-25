@@ -1,15 +1,16 @@
 package com.cand.app.entity;
 
 import com.cand.app.json.JsonTransaction;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 @Entity
 @Table(name = "transaction")
+@Data
 public class UniqueTransaction {
 
     @Id
@@ -26,56 +27,4 @@ public class UniqueTransaction {
         amount = new BigDecimal(transaction.amount.amount);
     }
 
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public String getRoutingNumber() {
-        return routingNumber;
-    }
-
-    public void setRoutingNumber(String routingNumber) {
-        this.routingNumber = routingNumber;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UniqueTransaction that = (UniqueTransaction) o;
-        return Objects.equals(transactionId, that.transactionId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(transactionId);
-    }
 }
