@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -15,7 +14,7 @@ import java.util.Set;
 /**
  * Exposed REST end points
  */
-@Controller
+@RestController //combination of @Component and @ResponseBody or if using @Controller use @Respo.B... at method level.
 @RequestMapping("/customer")
 public class CustomerController {
 
@@ -46,7 +45,6 @@ public class CustomerController {
 
     @GetMapping(value = "/{name}")
     @ApiOperation("I will get the ID of the customer")
-    @ResponseBody
     public long getCustomerId(@PathVariable final String name) {
         return customerService.getCustomerAccountDetails(name).getId();
     }
