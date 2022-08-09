@@ -3,13 +3,13 @@ package com.cand.app.controller;
 import com.cand.app.dto.CustomerDTO;
 import com.cand.app.exception.CustomerException;
 import com.cand.app.service.ICustomerService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Method;
 import java.util.Set;
 
 /**
@@ -41,7 +41,14 @@ public class CustomerController {
 
     @GetMapping("all/{name}")
     public ResponseEntity<CustomerDTO> getCustomer(@PathVariable final String name) {
-        return new ResponseEntity<CustomerDTO>(new CustomerDTO(customerService.getCustomerAccountDetails(name)), HttpStatus.OK);
+        return ResponseEntity.ok(new CustomerDTO(customerService.getCustomerAccountDetails(name)));
+    }
+
+    @GetMapping(value = "/{name}")
+    @ApiOperation("I will get the ID of the customer")
+    @ResponseBody
+    public long getCustomerId(@PathVariable final String name) {
+        return customerService.getCustomerAccountDetails(name).getId();
     }
 
     @ExceptionHandler(value = CustomerException.class)

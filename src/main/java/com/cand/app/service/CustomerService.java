@@ -4,8 +4,9 @@ import com.cand.app.entity.Customer;
 import com.cand.app.exception.CustomerException;
 import com.cand.app.exception.Message;
 import com.cand.app.repository.ICustomer;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,8 @@ import java.util.Set;
 
 @Service
 @Slf4j
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerService implements ICustomerService {
 
     private ICustomer customerRep;
