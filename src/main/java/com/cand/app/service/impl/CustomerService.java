@@ -1,9 +1,10 @@
-package com.cand.app.service;
+package com.cand.app.service.impl;
 
 import com.cand.app.entity.Customer;
 import com.cand.app.exception.CustomerException;
 import com.cand.app.exception.Message;
 import com.cand.app.repository.ICustomer;
+import com.cand.app.service.ICustomerService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

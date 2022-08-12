@@ -38,7 +38,7 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.getAllCustomerNames(), HttpStatus.OK);
     }
 
-    @GetMapping("all/{name}")
+    @GetMapping("name/{name}")
     public ResponseEntity<CustomerDTO> getCustomer(@PathVariable final String name) {
         return ResponseEntity.ok(new CustomerDTO(customerService.getCustomerAccountDetails(name)));
     }
