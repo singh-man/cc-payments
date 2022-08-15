@@ -21,7 +21,7 @@ public class CustomerTest {
     }
 
     @Test
-    public void shouldAnswerWithTrue() {
+    public void checkFindAllCustomers() {
         Mockito.when(this.customer.findAllCustomerNames()).thenReturn(new HashSet<>(Arrays.asList("abc", "xyz")));
         ICustomerService customerService = new CustomerService(customer);
         assertArrayEquals(new String[]{"abc", "xyz"}, customerService.getAllCustomerNames().toArray(new String[0]));
