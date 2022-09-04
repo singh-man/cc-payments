@@ -107,14 +107,6 @@
     </dependencies>
 
     <build>
-        <!--    <pluginManagement>&lt;!&ndash; lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) &ndash;&gt;-->
-        <!--      <plugins>-->
-        <!--        <plugin>-->
-        <!--          <artifactId>maven-surefire-plugin</artifactId>-->
-        <!--          <version>2.22.1</version>-->
-        <!--        </plugin>-->
-        <!--      </plugins>-->
-        <!--    </pluginManagement>-->
         <plugins>
             <plugin> <!--prepares fat jar-->
                 <groupId>org.springframework.boot</groupId>
