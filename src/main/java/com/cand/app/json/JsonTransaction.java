@@ -1,6 +1,6 @@
 package com.cand.app.json;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -12,25 +12,25 @@ public class JsonTransaction {
     public int transaction_count;
     public List<Transaction> transactions;
 
-    public class Transaction {
+    static public class Transaction {
         public String id;
-        @SerializedName("to")
-        public To myto;
+        @JsonProperty("to")
+        public To toAccount;
         public From from;
         public Amount amount;
     }
 
-    public class To {
+    static public class To {
         public String routing_number;
         public String account_number;
     }
 
-    class From {
+    static class From {
         public String routing_number;
         public String account_number;
     }
 
-    public class Amount {
+    static public class Amount {
         public float amount;
         public String currency;
     }

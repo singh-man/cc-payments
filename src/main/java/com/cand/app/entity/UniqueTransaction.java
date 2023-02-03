@@ -22,8 +22,8 @@ public class UniqueTransaction {
 
     public void populateDAO(JsonTransaction.Transaction transaction) {
         transactionId = transaction.id;
-        routingNumber = transaction.myto.routing_number;
-        accountNumber = transaction.myto.account_number;
+        routingNumber = transaction.toAccount.routing_number;
+        accountNumber = transaction.toAccount.account_number;
         amount = new BigDecimal(transaction.amount.amount);
     }
 

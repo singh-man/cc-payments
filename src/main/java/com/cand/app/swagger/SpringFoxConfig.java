@@ -1,5 +1,6 @@
 package com.cand.app.swagger;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -14,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Configuration
+@Slf4j
 public class SpringFoxConfig {
 
     private ApiKey apiKey() {
@@ -32,6 +34,7 @@ public class SpringFoxConfig {
     }
 
     private ApiInfo apiInfo() {
+        log.info("If all good than check http://<host>:<port>/swagger-ui.html");
         return new ApiInfo(
                 "My REST API",
                 "Some custom description of API.",

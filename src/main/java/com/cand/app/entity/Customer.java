@@ -1,6 +1,6 @@
 package com.cand.app.entity;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -27,7 +27,7 @@ public class Customer {
     private String fullName;
 
     @OneToMany(cascade = javax.persistence.CascadeType.ALL, mappedBy = "customer")
-    @SerializedName("banks") // for GSON
+    @JsonProperty("banks")
     private Set<Bank> accounts;
 
     public Customer(String fullName, Bank... banks) {

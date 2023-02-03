@@ -12,7 +12,7 @@ import com.cand.app.json.JsonCustomer;
 import com.cand.app.json.JsonTransaction;
 import com.cand.app.service.ICustomerService;
 import com.cand.app.service.ITransactionService;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -64,7 +64,7 @@ public class FileProcessor {
 
     private <T> T readFileAndPrepareObject(Path p, Class<T> glass) throws IOException {
         Reader reader = Files.newBufferedReader(p);
-        return new Gson().fromJson(reader, glass);
+        return new ObjectMapper().readValue(reader, glass);
     }
 
     private Set<UniqueTransaction> prepareBankTransactionFrom(Path p, List<Customer> customers) {
