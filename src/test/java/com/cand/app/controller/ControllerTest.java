@@ -39,7 +39,7 @@ public class ControllerTest {
 //        BDDMockito.given(customer.getAllCustomerNames()).
 //                willReturn(new HashSet<>(Arrays.asList(murphy.getFullName())));
         // BDDMockito above can also be used and is also a newer way of testing
-        Mockito.when(customer.getAllCustomerNames()).thenReturn(new HashSet<>(Arrays.asList("Murphy")));
+        Mockito.when(customer.getAllCustomerNames()).thenReturn(new HashSet<>(Arrays.asList(murphy.getFullName())));
         String contentAsString = mvc.perform(get("/customer/all").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
