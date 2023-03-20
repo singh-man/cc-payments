@@ -3,7 +3,8 @@ package com.cand.app.controller;
 import com.cand.app.dto.CustomerDTO;
 import com.cand.app.exception.CustomerException;
 import com.cand.app.service.ICustomerService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,9 @@ import java.util.Set;
 /**
  * Exposed REST end points
  */
-@RestController //combination of @Component and @ResponseBody or if using @Controller use @Respo.B... at method level.
+@RestController //combination of @Component and @ResponseBody or if using @Controller use @RespoB... at method level.
 @RequestMapping("/customer")
+@SecurityRequirement(name = "javainuseapi") // adds a lock sign and if on method lock sign only on that method
 public class CustomerController {
 
     @Autowired
@@ -44,7 +46,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/{name}")
-    @ApiOperation("I will get the ID of the customer")
+    @Operation(summary = "I will get the ID of the customer")
     public long getCustomerId(@PathVariable final String name) {
         return customerService.getCustomerAccountDetails(name).getId();
     }
