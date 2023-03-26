@@ -7,20 +7,37 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.security.OAuthFlows;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.annotation.PostConstruct;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 @SpringBootApplication
 @SecurityScheme(name = "javainuseapi", scheme = "basic", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 @OpenAPIDefinition(info = @Info(title = "Customer API", version = "2.0", description = "Customer Information"))
 public class App {
 
+    @Value("${server.port}")
+    private String port;
+
+    private String host = InetAddress.getLocalHost().getHostAddress();
+
+    public App() throws UnknownHostException {
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
-        System.out.println("Using Spring-Doc-OpenAPI- \n" +
-                "http://<host>:<port>/v3/api-docs/ \n" +
-                "http://<host>:<port>/swagger-ui/index.html \n");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println(String.format("Using Spring-Doc-OpenAPI- \n" +
+                "http://%s:%s/v3/api-docs/ \n" +
+                "http://%s:%s/swagger-ui/index.html \n", this.host, port, this.host, port));
     }
 }
