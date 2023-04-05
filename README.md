@@ -24,3 +24,9 @@ The requisite payment needed is printed on the Terminal as detailed in REQUIREME
 - Clone or download as zip
 - Follow the guidelines of the IDE to import the existing maven project.
 - Either allow IDE to build to do ```mvn clean install```
+
+### To make native binaries
+- Make sure that docker is installed
+- run `mvn -Pnative spring-boot:build-image`
+
+spring boot natively compiled image will be available as an image.
