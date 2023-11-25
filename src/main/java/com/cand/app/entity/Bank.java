@@ -10,7 +10,7 @@ import java.util.Objects;
 @Table(name = "bank")
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @RequiredArgsConstructor()
 public class Bank {

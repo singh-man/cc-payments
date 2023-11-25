@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class Customer {
 
     public static final String UNKNOWN = "UNKNOWN";
@@ -31,7 +31,7 @@ public class Customer {
     private Set<Bank> accounts;
 
     public Customer(String fullName, Bank... banks) {
-        this(fullName);
+        this.fullName = fullName;
         this.accounts = new HashSet<>(Arrays.asList(banks));
     }
 

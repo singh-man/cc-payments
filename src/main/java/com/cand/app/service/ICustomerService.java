@@ -11,5 +11,8 @@ public interface ICustomerService extends IService<Customer> {
     Set<String> getAllCustomerNames();
 
     Customer getCustomerAccountDetails(String name);
+
+    Boolean addXAmountToCustomerAfterYTime(String name, float amt, int time);
+
 }
 

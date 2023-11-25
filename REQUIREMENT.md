@@ -48,7 +48,11 @@ The numbers in lines 1 - 8 MUST contain the count of valid deposits and their su
 
 The numbers in line 9 MUST be the count and the sum of the valid deposits to addresses that are not associated with a known customer.
 
-Results MUST be printed to stdout as formatted above.  Any submissions requiring additional steps or commands beyond executing `docker-compose up` will not be considered.  
+Results MUST be printed to stdout as formatted above.  Any submissions requiring additional steps or commands beyond executing `docker-compose up` will not be considered.
+
+## Other tasks
+- Give interest % X to customer <name> after time <Y>
+- Wrap the API's in OAUTH2 security.
 
 ## Submitting your results
 

@@ -1,6 +1,7 @@
 package com.cand.app.controller;
 
 import com.cand.app.dto.CustomerDTO;
+import com.cand.app.dto.AddAmtDto;
 import com.cand.app.exception.CustomerException;
 import com.cand.app.service.ICustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,6 +42,7 @@ public class CustomerController {
     }
 
     @GetMapping("name/{name}")
+    @Operation(summary = "Get all details for given customer!!")
     public ResponseEntity<CustomerDTO> getCustomer(@PathVariable final String name) {
         return ResponseEntity.ok(new CustomerDTO(customerService.getCustomerAccountDetails(name)));
     }
@@ -49,6 +51,16 @@ public class CustomerController {
     @Operation(summary = "I will get the ID of the customer")
     public long getCustomerId(@PathVariable final String name) {
         return customerService.getCustomerAccountDetails(name).getId();
+    }
+
+    /**
+     * Returns 403 forbidden if spring-security is present. To make it work disable CSRF
+     */
+    @PostMapping(path = "/interest")
+    @Operation(summary = "I give interest X to the customer after time Y")
+    public ResponseEntity<Boolean> addInterestXAfterTimeY(@RequestBody AddAmtDto amtDto) {
+        customerService.addXAmountToCustomerAfterYTime(amtDto.name(), amtDto.percent(), amtDto.time());
+        return ResponseEntity.ok(true);
     }
 
     @ExceptionHandler(value = CustomerException.class)
