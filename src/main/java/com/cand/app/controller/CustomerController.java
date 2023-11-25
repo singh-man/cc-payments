@@ -57,8 +57,8 @@ public class CustomerController {
      * Returns 403 forbidden if spring-security is present. To make it work disable CSRF
      */
     @PostMapping(path = "/interest")
-    @Operation(summary = "I give interest X to the customer after time Y")
-    public ResponseEntity<Boolean> addInterestXAfterTimeY(@RequestBody AddAmtDto amtDto) {
+    @Operation(summary = "I add amount X to the customer after time Y")
+    public ResponseEntity<Boolean> addAmtXAfterTimeY(@RequestBody AddAmtDto amtDto) {
         customerService.addXAmountToCustomerAfterYTime(amtDto.name(), amtDto.percent(), amtDto.time());
         return ResponseEntity.ok(true);
     }
