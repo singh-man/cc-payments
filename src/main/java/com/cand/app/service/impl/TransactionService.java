@@ -6,7 +6,6 @@ import com.cand.app.exception.CustomerException;
 import com.cand.app.exception.Message;
 import com.cand.app.repository.IBankTransaction;
 import com.cand.app.service.ITransactionService;
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
 @Service
 public class TransactionService implements ITransactionService {
 
-    private static final Logger log = Logger.getLogger(TransactionService.class);
+    private static final Logger log = Logger.getLogger(TransactionService.class.getName());
 
     @Autowired
     private IBankTransaction trans;
@@ -42,7 +42,7 @@ public class TransactionService implements ITransactionService {
 
     @Override
     public Set<UniqueTransaction> getCustomerTransaction(String customers) {
-        HashSet<UniqueTransaction> oneTransactions = new HashSet<>(trans.findByCustomerName(customers));
+        Set<UniqueTransaction> oneTransactions = new HashSet<>(trans.findByCustomerName(customers));
         return Optional.ofNullable(oneTransactions).orElseThrow(() -> new CustomerException(Message.CUSTOMER_NOT_FOUND));
     }
 

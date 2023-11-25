@@ -1,11 +1,11 @@
 package com.cand.app.entity;
 
 import com.cand.app.json.JsonTransaction;
-import lombok.Data;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.Data;
+
 import java.math.BigDecimal;
 
 @Entity
