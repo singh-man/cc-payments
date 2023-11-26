@@ -19,7 +19,8 @@ public class SecurityConfiguration {
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf()
+                .disable()
                 .authorizeHttpRequests()
 //                .antMatchers("/swagger-ui/**", "/javainuse-openapi/**")
                 .antMatchers("/**")
