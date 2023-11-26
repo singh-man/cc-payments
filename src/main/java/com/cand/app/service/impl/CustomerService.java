@@ -71,15 +71,16 @@ public class CustomerService implements ICustomerService {
         }
         Customer customerAccountDetails = getCustomerAccountDetails(name);
         if (customerAccountDetails != null) {
+            // find bank with highest balance or use the first available bank
             Bank bank = customerAccountDetails.getAccounts().stream()
                     .min((o1, o2) -> o1.getBalance().compareTo(o1.getBalance()))
                     .orElse(customerAccountDetails.getAccounts().iterator().next());
             bank.setBalance(bank.getBalance().add(BigDecimal.valueOf(amt)));
             customerRep.save(customerAccountDetails);
-            System.out.println(String.format("I gave interest %f to customer %s", amt, name));
+            log.info(String.format("Added amount %f to customer's account with highest balance. %s", amt, name));
             return true;
         }
-        System.out.println(String.format("Customer %s not found. No interest given!!", name));
+        log.info(String.format("Customer %s not found. No amount was added!!", name));
         return false;
     }
 
