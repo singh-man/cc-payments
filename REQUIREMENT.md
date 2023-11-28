@@ -50,8 +50,8 @@ The numbers in line 9 MUST be the count and the sum of the valid deposits to add
 
 Results MUST be printed to stdout as formatted above.  Any submissions requiring additional steps or commands beyond executing `docker-compose up` will not be considered.
 
-## Other tasks
-- Add amount X to customer <name> after time Y
+## Additional tasks
+- Add API to add amount X to customer <name> after time Y
 - Wrap the API's in OAUTH2 security.
 - Unit, MVC and integration tests
 
