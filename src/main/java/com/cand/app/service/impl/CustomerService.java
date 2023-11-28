@@ -61,6 +61,7 @@ public class CustomerService implements ICustomerService {
     /*
      * resolves org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role
      * Customer to Bank is OneToMany and Bank is lazy loaded by default
+     * Can also be used at Class level
      */
     @Transactional(value = Transactional.TxType.REQUIRED, dontRollbackOn = Exception.class)
     public Boolean addXAmountToCustomerAfterYTime(String name, float amt, int time) {
