@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,16 +20,22 @@ public class SecurityConfiguration {
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
-                .authorizeHttpRequests()
-//                .antMatchers("/swagger-ui/**", "/javainuse-openapi/**")
-                .antMatchers("/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
+        http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
+            authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
+
+        })
+                .csrf().disable()
+                .formLogin(Customizer.withDefaults());
+//        http.csrf()
+//                .disable()
+//                .authorizeHttpRequests()
+////                .antMatchers("/swagger-ui/**", "/javainuse-openapi/**")
+//                .antMatchers("/**")
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .httpBasic();
 
 //        http.csrf()
 //                .disable()
@@ -41,16 +48,17 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
+    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
+        UserDetails user = User.builder()
+                .passwordEncoder(e -> encoder.encode(e))
                 .username("user")
                 .password("password")
-                .roles("USER")
+                .roles("USER", "ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(user);
     }
 
-//    @Bean
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
