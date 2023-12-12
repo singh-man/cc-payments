@@ -59,7 +59,7 @@ public class CustomerController {
     @PostMapping(path = "/interest")
     @Operation(summary = "I add amount X to the customer after time Y")
     public ResponseEntity<Boolean> addAmtXAfterTimeY(@RequestBody AddAmtDto amtDto) {
-        customerService.addXAmountToCustomerAfterYTime(amtDto.name(), amtDto.percent(), amtDto.time());
+        customerService.addXAmountToCustomerAfterYTime(amtDto.name(), amtDto.amount(), amtDto.time());
         return ResponseEntity.ok(true);
     }
 
