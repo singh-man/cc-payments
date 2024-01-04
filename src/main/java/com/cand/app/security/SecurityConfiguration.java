@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.function.Function;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -23,16 +25,19 @@ public class SecurityConfiguration {
                     authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
                 }) // all requests should be authenticated
                 .csrf().disable() // for POST, PUT
-                .httpBasic(Customizer.withDefaults()); // a login web page is shown for not authenticated request
+//                .formLogin(Customizer.withDefaults()); // Shows a login page
+                .httpBasic(Customizer.withDefaults()); // a login web page pop-up is shown for not authenticated request
+
+        http.headers().frameOptions().disable(); // for h2-console to work
         return http.build();
     }
 
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
         UserDetails user = User.builder()
-                .passwordEncoder(e -> encoder.encode(e))
                 .username("user")
                 .password("password")
+                .passwordEncoder(s -> encoder.encode(s))
                 .roles("USER", "ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(user);

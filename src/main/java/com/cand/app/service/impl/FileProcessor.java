@@ -4,6 +4,8 @@
 package com.cand.app.service.impl;
 
 import com.cand.app.entity.Customer;
+import com.cand.app.entity.UniqueTransaction;
+import com.cand.app.service.ICustomerService;
 import com.cand.app.service.ITransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -37,10 +42,13 @@ public class FileProcessor {
 //    }
 
     @Autowired
-    ITransactionService transactionService;
+    PopulateTransactionDB populateTransactionDB;
 
     @Autowired
-    PopulateTransactionDB populateTransactionDB;
+    ICustomerService customerService;
+
+    @Autowired
+    ITransactionService transactionService;
 
     @PostConstruct
     private void init() {
@@ -51,15 +59,22 @@ public class FileProcessor {
         } catch (IOException e) {
             log.error("Failed to load files from given path \n Continuing for now: " + e.getLocalizedMessage());
         }
-        List<Customer> customers = populateTransactionDB.setUpAndGetCustomers(allFiles);
+        List<Path> customerFiles = new ArrayList<>();
+        List<Path> transFiles = new ArrayList<>();
+        for (Path p : allFiles) {
+            if (p.getFileName().startsWith(FileProcessor.CUSTOMER_JSON)) customerFiles.add(p);
+            else transFiles.add(p);
+        }
+        List<Customer> customers = customerService.saveAllFrom(customerFiles);
 
         // There might be many files; better to load them in separate thread and allow the application to become responsive.
-        populateTransactionDB.setAllFiles(allFiles);
-        populateTransactionDB.setCustomers(customers);
-        populateTransactionDB.setFileProcessor(this);
+        Set<UniqueTransaction> uniqueTransactions = new HashSet<>();
+        for(Path p : transFiles) {
+            uniqueTransactions.addAll(populateTransactionDB.prepareBankTransactionFrom(p, customers));
+        }
 
         log.info("Below must be done in a separate thread!!");
-        populateTransactionDB.process(); // async operation
+        populateTransactionDB.process(customers, uniqueTransactions); // async operation
     }
 
 }
