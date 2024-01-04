@@ -3,9 +3,12 @@ package com.cand.app.service.impl;
 import com.cand.app.entity.Bank;
 import com.cand.app.entity.Customer;
 import com.cand.app.exception.CustomerException;
+import com.cand.app.exception.FileProcessFailException;
 import com.cand.app.exception.Message;
+import com.cand.app.json.JsonCustomer;
 import com.cand.app.repository.ICustomer;
 import com.cand.app.service.ICustomerService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,16 +17,20 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.io.Reader;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 @AllArgsConstructor
 @NoArgsConstructor
+@Transactional
 public class CustomerService implements ICustomerService {
 
     private ICustomer customerRep;
@@ -88,5 +95,30 @@ public class CustomerService implements ICustomerService {
     @Autowired
     public void setCustomerRep(ICustomer customerRep) {
         this.customerRep = customerRep;
+    }
+
+    private <T> T readFileAndPrepareObject(Path p, Class<T> glass) throws IOException {
+        Reader reader = Files.newBufferedReader(p);
+        return new ObjectMapper().readValue(reader, glass);
+    }
+
+    @Override
+    public List<Customer> saveAllFrom(List<Path> path) {
+        if (path.isEmpty()) throw new FileProcessFailException(Message.CUSTOMER_FILE_NOT_FOUND);
+        List<Customer> customers = new ArrayList<>();
+        for(Path c : path) {
+            try {
+                customers.addAll(readFileAndPrepareObject(c, JsonCustomer.class).customers);
+            } catch (IOException ex) {
+                log.error("Failed to load customers file better to exist the processing!! : " + ex.getLocalizedMessage());
+                System.exit(0);
+            }
+        }
+        customers.forEach(c -> c.getAccounts().forEach(b -> {
+            b.setCustomer(c);
+            b.setBalance(BigDecimal.valueOf(0)); // init with 0 balance for each account
+        }));
+        saveAll(new HashSet<>(customers));
+        return customers;
     }
 }
