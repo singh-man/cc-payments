@@ -44,7 +44,7 @@ public class CustomerController {
     @GetMapping("name/{name}")
     @Operation(summary = "Get all details for given customer!!")
     public ResponseEntity<CustomerDTO> getCustomer(@PathVariable final String name) {
-        return ResponseEntity.ok(new CustomerDTO(customerService.getCustomerAccountDetails(name)));
+        return ResponseEntity.ok(CustomerDTO.getCustomerDTO(customerService.getCustomerAccountDetails(name)));
     }
 
     @GetMapping(value = "/{name}")
