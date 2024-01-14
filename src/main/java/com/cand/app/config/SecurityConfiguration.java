@@ -1,4 +1,4 @@
-package com.cand.app.security;
+package com.cand.app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
