@@ -37,7 +37,7 @@ public class APITest {
     }
 
     @Test
-    public void checkSpockID() throws Exception {
+    public void checkSpockID(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(get("/customer/Spock").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
