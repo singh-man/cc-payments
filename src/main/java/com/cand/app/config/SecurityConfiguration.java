@@ -24,7 +24,8 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
                 }) // all requests should be authenticated
-                .csrf().disable() // for POST, PUT
+                // csrf must also be disabled for token (JWT, API-KEY) based authentication as each request will be validated by token filter!!
+//                .csrf().disable() // for POST, PUT, DELETE if enabled these methods will give 403
 //                .formLogin(Customizer.withDefaults()); // Shows a login page
                 .httpBasic(Customizer.withDefaults()); // a login web page pop-up is shown for not authenticated request
 
